@@ -13,19 +13,36 @@ our @ISA = 'Regexp';
 XSLoader::load(__PACKAGE__, $XS_VERSION);
 
 # set'able via import
+our %CONTEXT_OPTIONS;
 our @CONTEXT_OPTIONS = qw(
   bsr max_pattern_length newline parens_nest_limit
   match_limit offset_limit recursion_limit
 );
 
+sub _check_context_option {
+    if (!%CONTEXT_OPTIONS) {
+        %CONTEXT_OPTIONS = map { $_ => undef } @CONTEXT_OPTIONS;
+    }
+    if (!exists $CONTEXT_OPTIONS{$_}) {
+        require Carp;
+        Carp::croak("Invalid PCRE2 context option $_");
+    }
+}
+
 # TODO: set context options, and save prev. ones for unimport.
 # compile-ctx and match-ctx (see above: @CONTEXT_OPTIONS)
 sub import {
-  $^H{regcomp} = re::engine::PCRE2::ENGINE();
+    $^H{regcomp} = re::engine::PCRE2::ENGINE();
+    shift;
+    my %opts;
+    for (@_) {
+        _check_context_option($_);
+    }
 }
 
 sub unimport {
-  delete $^H{regcomp} if $^H{regcomp} == re::engine::PCRE2::ENGINE();
+    delete $^H{regcomp} if $^H{regcomp} == re::engine::PCRE2::ENGINE();
+    # restore the old context values
 }
 
 1;
