@@ -399,10 +399,19 @@ the match will be performed without UTF-8.
 
 Try the new faster matcher with C<export PERL5OPT=-Mre::engine::PCRE2>.
 
-Known problematic popular modules are: Test-Harness-3.38,
-Params-Util-1.07 I<t/12_main.t 552-553, 567-568>, HTML-Parser-3.72
-I<(unicode)>, DBI-1.636 I<(EUMM problem)>, DBD-SQLite-1.54
-I<(xsubpp)>, Sub-Name-0.21 I<t/exotic_names.t:105>, XML-LibXML-2.0129
+Known broken popular modules with PCRE2 with anchor fallback are:
+Algorithm-Diff-1.1903, DBI-1.636 I<(t/48dbi_dbd_sqlengine.t: 5-11)>, 
+DBD-SQLite-1.54 I<(local charset warning)>,
+Module-Load-Conditional-0.68, Test-Simple-1.302078, CPAN-2.16,
+CPAN-Reporter-1.2018, Test-Harness-3.38,
+ExtUtils-MakeMaker-7.24, Archive-Zip-1.59, Archive-Tar-Streamed-0.03,
+App-perlbrew-0.78, App-cpm-0.116, App-FatPacker-0.010005 I<(the PERL5OPT)>,
+CPAN-2.16, B-Debug-1.24, CGI-4.35, CPAN-Meta-2.150010, 
+Carp-REPL-0.18, Class-Method-Modifiers-2.12, Class-MethodMaker-2.24, 
+Convert-ASN1-0.27, Cpanel-JSON-XS-3.0230, DBIx-Class-0.082840, 
+Params-Util-1.07 I<t/12_main.t 552-553, 567-568>,
+HTML-Parser-3.72 I<(unicode)>, 
+Sub-Name-0.21 I<t/exotic_names.t:105>, XML-LibXML-2.0129
 I<(local charset)>, Module-Install-1.18 I<unrecognized character after
 (?  or (?->, Text-CSV_XS-1.28 I<(unicode)>, YAML-Syck-1.29, MD5-2.03,
 XML-Parser-2.44, Module-Build-0.4222, libwww-perl-6.25.
